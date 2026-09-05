@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -9,4 +10,8 @@ Route::get('/', function () {
 
 // Resource Route untuk Inventory CRUD
 Route::resource('inventory', InventoryController::class);
+
+// Resource Route untuk Transaction / Data Penjualan (kecuali edit, update, show)
+Route::resource('sales', TransactionController::class)->except(['edit', 'update', 'show']);
+
 
