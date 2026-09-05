@@ -10,7 +10,9 @@
         routes: {
             store: '{{ route('inventory.store') }}',
             index: '{{ route('inventory.index') }}'
-        }
+        },
+        oldInput: {{ json_encode(session()->getOldInput() ?? new stdClass()) }},
+        serverErrors: {{ json_encode($errors->getBag('default')->toArray() ?? new stdClass()) }}
     })"
     class="space-y-6"
 >
@@ -210,6 +212,20 @@
             deleteErrorMessage: '',
 
             flashMessage: { text: '', type: 'success' },
+
+            init() {
+                // Auto-open modal jika terdapat validation errors dari HTTP redirect back (old input & session errors)
+                if (config.serverErrors && Object.keys(config.serverErrors).length > 0) {
+                    this.errors = config.serverErrors;
+                    if (config.oldInput) {
+                        this.formData = Object.assign({}, this.formData, config.oldInput);
+                        if (config.oldInput.id) {
+                            this.isEditMode = true;
+                        }
+                    }
+                    this.formModalOpen = true;
+                }
+            },
 
             showNotification(text, type = 'success') {
                 this.flashMessage = { text, type };
