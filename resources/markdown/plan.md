@@ -155,6 +155,7 @@ resources/views/
 ├── layouts/
 │   └── app.blade.php        (sidebar navy + konten, responsive)
 ├── dashboard/
+
 │   └── index.blade.php      (4 kartu statistik + grafik bonus)
 ├── inventory/
 │   ├── index.blade.php      (tabel produk + search + tombol CRUD)
