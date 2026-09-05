@@ -35,12 +35,15 @@
                             class="block text-xs font-semibold text-textSecondary uppercase tracking-wider mb-1">
                             Nama Produk <span class="text-danger">*</span>
                         </label>
-                        <input type="text" id="name" x-model="formData.name" required
+                        <input type="text" id="name" x-model="formData.name" required minlength="3" maxlength="255"
                             placeholder="Contoh: Kaos Oversize Basic"
                             class="w-full px-3.5 py-2 text-sm rounded-lg border border-border focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white"
-                            :class="{ 'border-danger focus:ring-danger/20': errors.name }">
+                            :class="{ 'border-danger bg-danger/5 focus:ring-danger/20': errors.name || (formData.name && formData.name.trim().length > 0 && formData.name.trim().length < 3) }">
                         <template x-if="errors.name">
-                            <p class="mt-1 text-xs text-danger font-medium" x-text="errors.name[0]"></p>
+                            <p class="mt-1 text-sm text-danger font-medium" x-text="errors.name[0]"></p>
+                        </template>
+                        <template x-if="!errors.name && formData.name && formData.name.trim().length > 0 && formData.name.trim().length < 3">
+                            <p class="mt-1 text-sm text-danger font-medium">Nama produk minimal 3 karakter.</p>
                         </template>
                     </div>
 
@@ -52,14 +55,14 @@
                         </label>
                         <select id="category" x-model="formData.category" required
                             class="w-full px-3.5 py-2 text-sm rounded-lg border border-border focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white"
-                            :class="{ 'border-danger focus:ring-danger/20': errors.category }">
+                            :class="{ 'border-danger bg-danger/5 focus:ring-danger/20': errors.category }">
                             <option value="" disabled>-- Pilih Kategori --</option>
                             <template x-for="cat in categories" :key="cat">
                                 <option :value="cat" x-text="cat" :selected="formData.category === cat"></option>
                             </template>
                         </select>
                         <template x-if="errors.category">
-                            <p class="mt-1 text-xs text-danger font-medium" x-text="errors.category[0]"></p>
+                            <p class="mt-1 text-sm text-danger font-medium" x-text="errors.category[0]"></p>
                         </template>
                     </div>
 
@@ -74,14 +77,16 @@
                             <div class="relative">
                                 <span
                                     class="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-semibold text-textSecondary">Rp</span>
-                                <input type="number" id="price" x-model="formData.price" min="0"
-                                    step="500"
-                                    required placeholder="75000"
+                                <input type="number" id="price" x-model="formData.price" min="1" step="any" required
+                                    placeholder="75000"
                                     class="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-border focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white"
-                                    :class="{ 'border-danger focus:ring-danger/20': errors.price }">
+                                    :class="{ 'border-danger bg-danger/5 focus:ring-danger/20': errors.price || (formData.price !== '' && Number(formData.price) <= 0) }">
                             </div>
                             <template x-if="errors.price">
-                                <p class="mt-1 text-xs text-danger font-medium" x-text="errors.price[0]"></p>
+                                <p class="mt-1 text-sm text-danger font-medium" x-text="errors.price[0]"></p>
+                            </template>
+                            <template x-if="!errors.price && formData.price !== '' && Number(formData.price) <= 0">
+                                <p class="mt-1 text-sm text-danger font-medium">Harga tidak boleh 0 atau negatif.</p>
                             </template>
                         </div>
 
@@ -91,12 +96,18 @@
                                 class="block text-xs font-semibold text-textSecondary uppercase tracking-wider mb-1">
                                 Stok <span class="text-danger">*</span>
                             </label>
-                            <input type="number" id="stock" x-model="formData.stock" min="0"
-                                required placeholder="10"
+                            <input type="number" id="stock" x-model="formData.stock" min="0" step="1" required
+                                placeholder="10"
                                 class="w-full px-3.5 py-2 text-sm rounded-lg border border-border focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-white"
-                                :class="{ 'border-danger focus:ring-danger/20': errors.stock }">
+                                :class="{ 'border-danger bg-danger/5 focus:ring-danger/20': errors.stock || (formData.stock !== '' && (Number(formData.stock) < 0 || !Number.isInteger(Number(formData.stock)))) }">
                             <template x-if="errors.stock">
-                                <p class="mt-1 text-xs text-danger font-medium" x-text="errors.stock[0]"></p>
+                                <p class="mt-1 text-sm text-danger font-medium" x-text="errors.stock[0]"></p>
+                            </template>
+                            <template x-if="!errors.stock && formData.stock !== '' && Number(formData.stock) < 0">
+                                <p class="mt-1 text-sm text-danger font-medium">Stok tidak boleh negatif.</p>
+                            </template>
+                            <template x-if="!errors.stock && formData.stock !== '' && Number(formData.stock) >= 0 && !Number.isInteger(Number(formData.stock))">
+                                <p class="mt-1 text-sm text-danger font-medium">Stok harus berupa bilangan bulat.</p>
                             </template>
                         </div>
                     </div>

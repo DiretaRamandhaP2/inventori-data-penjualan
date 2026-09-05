@@ -15,6 +15,17 @@ class UpdateInventoryRequest extends FormRequest
     }
 
     /**
+     * Prepare the data for validation.
+     * Trim input nama produk sebelum divalidasi agar input yang hanya berisi spasi menjadi string kosong.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'name' => is_string($this->name) ? trim($this->name) : $this->name,
+        ]);
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
@@ -22,9 +33,16 @@ class UpdateInventoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => ['required', 'string', 'max:255'],
-            'category' => ['required', 'string', 'max:255'],
-            'price'    => ['required', 'numeric', 'min:0'],
+            // name: wajib diisi, minimal 3 karakter, maks 255
+            'name'     => ['required', 'string', 'min:3', 'max:255'],
+
+            // category: menggunakan rule `in:Fashion,Aksesoris,Lifestyle`
+            'category' => ['required', 'string', 'in:Fashion,Aksesoris,Lifestyle'],
+
+            // price: `min:1` (harga 0 tidak masuk akal untuk produk komersial) & desimal maks 2 angka
+            'price'    => ['required', 'numeric', 'min:1', 'regex:/^\d+(\.\d{1,2})?$/'],
+
+            // stock: `min:0` (stok 0 valid saat produk habis) & bilangan bulat
             'stock'    => ['required', 'integer', 'min:0'],
         ];
     }
@@ -38,14 +56,18 @@ class UpdateInventoryRequest extends FormRequest
     {
         return [
             'name.required'     => 'Nama produk wajib diisi.',
+            'name.string'       => 'Nama produk harus berupa teks.',
+            'name.min'          => 'Nama produk minimal 3 karakter.',
             'name.max'          => 'Nama produk maksimal 255 karakter.',
-            'category.required' => 'Kategori wajib dipilih atau diisi.',
-            'price.required'    => 'Harga produk wajib diisi.',
-            'price.numeric'     => 'Harga harus berupa angka.',
-            'price.min'         => 'Harga tidak boleh kurang dari 0.',
+            'category.required' => 'Kategori wajib dipilih.',
+            'category.in'       => 'Kategori yang dipilih tidak valid.',
+            'price.required'    => 'Harga wajib diisi.',
+            'price.numeric'     => 'Harga wajib berupa angka.',
+            'price.min'         => 'Harga tidak boleh 0 atau negatif.',
+            'price.regex'       => 'Format harga tidak valid (maksimal 2 angka desimal).',
             'stock.required'    => 'Stok wajib diisi.',
-            'stock.integer'     => 'Stok harus berupa bilangan bulat.',
-            'stock.min'         => 'Stok tidak boleh kurang dari 0.',
+            'stock.integer'     => 'Stok harus berupa bilangan bulat, tidak boleh desimal.',
+            'stock.min'         => 'Stok tidak boleh negatif.',
         ];
     }
 }
