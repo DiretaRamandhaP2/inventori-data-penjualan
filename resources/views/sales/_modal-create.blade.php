@@ -8,7 +8,7 @@
     <!-- Modal Dialog -->
     <div class="flex min-h-full items-center justify-center p-4 text-center">
         <div x-show="createModalOpen"
-            class="relative w-full max-w-md transform overflow-hidden rounded-xl bg-surface border border-border text-left shadow-xl transition-all">
+            class="relative w-full max-w-md max-h-[calc(100vh-2rem)] overflow-y-auto transform rounded-xl bg-surface border border-border text-left shadow-xl transition-all">
             <!-- Modal Header -->
             <div class="flex items-center justify-between border-b border-border px-6 py-4 bg-slate-50/50">
                 <h3 class="text-base font-bold text-textPrimary">Tambah Transaksi Penjualan</h3>

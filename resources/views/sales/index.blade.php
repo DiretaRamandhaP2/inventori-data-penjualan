@@ -17,7 +17,7 @@
     <!-- Dynamic Notification Banner -->
     <div
         x-show="flashMessage.text !== ''"
-        class="rounded-lg p-4 shadow-xs border flex items-center justify-between"
+        class="rounded-lg p-4 shadow-xs border flex items-start gap-3"
         :class="{
             'bg-emerald-50 border-success/30 text-success': flashMessage.type === 'success',
             'bg-red-50 border-danger/30 text-danger': flashMessage.type === 'error'
@@ -25,9 +25,9 @@
         style="display: none;"
     >
         <div class="flex items-center space-x-3">
-            <span class="text-sm font-medium" x-text="flashMessage.text"></span>
+            <span class="min-w-0 break-words text-sm font-medium" x-text="flashMessage.text"></span>
         </div>
-        <button @click="flashMessage.text = ''" class="text-slate-400 hover:text-slate-600">
+        <button @click="flashMessage.text = ''" aria-label="Tutup notifikasi" class="shrink-0 min-h-11 min-w-11 inline-flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-lg">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
@@ -55,12 +55,12 @@
                 </div>
 
                 <!-- Filter Tanggal Dari - Sampai -->
-                <div class="flex items-center space-x-2">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-2 w-full lg:w-auto">
                     <input
                         type="date"
                         name="date_from"
                         value="{{ $dateFrom }}"
-                        class="py-2 px-3 text-xs md:text-sm rounded-lg border border-border focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background"
+                        class="w-full sm:w-auto py-2 px-3 text-xs md:text-sm rounded-lg border border-border focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background"
                         title="Dari Tanggal"
                     >
                     <span class="text-xs text-textSecondary font-semibold">s/d</span>
@@ -68,17 +68,17 @@
                         type="date"
                         name="date_to"
                         value="{{ $dateTo }}"
-                        class="py-2 px-3 text-xs md:text-sm rounded-lg border border-border focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background"
+                        class="w-full sm:w-auto py-2 px-3 text-xs md:text-sm rounded-lg border border-border focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background"
                         title="Sampai Tanggal"
                     >
                 </div>
 
-                <div class="flex items-center space-x-2">
-                    <button type="submit" class="px-3.5 py-2 text-xs font-semibold text-white bg-slate-800 hover:bg-slate-900 rounded-lg transition">
+                <div class="flex items-center gap-2">
+                    <button type="submit" class="min-h-11 px-3.5 py-2 text-xs font-semibold text-white bg-slate-800 hover:bg-slate-900 rounded-lg transition">
                         Filter
                     </button>
                     @if($search || $dateFrom || $dateTo)
-                        <a href="{{ route('sales.index') }}" class="px-3 py-2 text-xs font-semibold text-textSecondary hover:text-textPrimary bg-slate-100 rounded-lg transition">
+                        <a href="{{ route('sales.index') }}" class="min-h-11 inline-flex items-center px-3 py-2 text-xs font-semibold text-textSecondary hover:text-textPrimary bg-slate-100 rounded-lg transition">
                             Reset
                         </a>
                     @endif
@@ -88,7 +88,7 @@
             <button
                 type="button"
                 @click="openCreateModal"
-                class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-dark rounded-lg shadow-xs transition flex items-center justify-center space-x-2"
+                class="w-full lg:w-auto min-h-11 px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-dark rounded-lg shadow-xs transition flex items-center justify-center space-x-2"
             >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>

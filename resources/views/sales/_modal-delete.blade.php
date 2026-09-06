@@ -8,7 +8,7 @@
     <!-- Modal Dialog -->
     <div class="flex min-h-full items-center justify-center p-4 text-center">
         <div x-show="deleteModalOpen"
-            class="relative w-full max-w-md transform overflow-hidden rounded-xl bg-surface border border-border text-left shadow-xl transition-all">
+            class="relative w-full max-w-md max-h-[calc(100vh-2rem)] overflow-y-auto transform rounded-xl bg-surface border border-border text-left shadow-xl transition-all">
             <!-- Modal Header -->
             <div class="flex items-center justify-between border-b border-border px-6 py-4 bg-slate-50/50">
                 <h3 class="text-base font-bold text-danger flex items-center space-x-2">
@@ -39,23 +39,23 @@
 
                 <!-- Detail Transaksi Target -->
                 <div class="bg-slate-50 p-4 rounded-lg border border-border space-y-2 text-xs">
-                    <div class="flex justify-between">
+                    <div class="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
                         <span class="text-textSecondary font-medium">ID Transaksi:</span>
                         <span class="font-mono font-bold text-textPrimary" x-text="deleteTarget.id"></span>
                     </div>
-                    <div class="flex justify-between">
+                    <div class="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
                         <span class="text-textSecondary font-medium">Nama Produk:</span>
                         <span class="font-semibold text-textPrimary" x-text="deleteTarget.product_name"></span>
                     </div>
-                    <div class="flex justify-between">
+                    <div class="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
                         <span class="text-textSecondary font-medium">Jumlah Pembelian:</span>
                         <span class="font-semibold text-textPrimary" x-text="deleteTarget.quantity + ' item'"></span>
                     </div>
-                    <div class="flex justify-between">
+                    <div class="flex flex-wrap items-start justify-between gap-x-3 gap-y-1">
                         <span class="text-textSecondary font-medium">Tanggal:</span>
                         <span class="text-textPrimary" x-text="deleteTarget.date"></span>
                     </div>
-                    <div class="flex justify-between border-t border-slate-200 pt-2">
+                    <div class="flex flex-wrap items-start justify-between gap-x-3 gap-y-1 border-t border-slate-200 pt-2">
                         <span class="text-textSecondary font-medium">Total Pembayaran:</span>
                         <span class="font-bold text-primary text-sm" x-text="'Rp ' + Number(deleteTarget.total).toLocaleString('id-ID')"></span>
                     </div>
