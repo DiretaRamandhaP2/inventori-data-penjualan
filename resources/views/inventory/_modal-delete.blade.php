@@ -17,7 +17,7 @@
     <div class="flex min-h-full items-center justify-center p-4 text-center">
         <div
             x-show="deleteModalOpen"
-            class="relative w-full max-w-md transform overflow-hidden rounded-xl bg-surface border border-border text-left shadow-xl transition-all"
+            class="relative w-full max-w-md max-h-[calc(100vh-2rem)] overflow-y-auto transform rounded-xl bg-surface border border-border text-left shadow-xl transition-all"
         >
             <div class="p-6">
                 <!-- Icon Warning -->

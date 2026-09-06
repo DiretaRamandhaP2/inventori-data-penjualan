@@ -24,7 +24,7 @@
     </style>
 </head>
 
-<body class="bg-background text-textPrimary antialiased flex flex-col min-h-screen" x-data="{ sidebarOpen: false }">
+<body class="bg-background text-textPrimary antialiased flex flex-col min-h-screen overflow-x-hidden" x-data="{ sidebarOpen: false }">
 
     <div class="flex flex-1 min-h-screen overflow-hidden">
         <!-- Sidebar Desktop & Mobile -->
@@ -40,8 +40,8 @@
                         </div>
                         <span class="font-bold text-lg tracking-wide text-white">InvManager</span>
                     </div>
-                    <button @click="sidebarOpen = false"
-                        class="md:hidden text-slate-400 hover:text-white focus:outline-none">
+                    <button @click="sidebarOpen = false" aria-label="Tutup menu navigasi"
+                        class="md:hidden min-h-11 min-w-11 inline-flex items-center justify-center text-slate-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50 rounded-lg">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M6 18L18 6M6 6l12 12" />
@@ -96,14 +96,14 @@
             <header
                 class="bg-surface border-b border-border h-16 flex items-center justify-between px-4 md:px-8 sticky top-0 z-30 shadow-xs">
                 <div class="flex items-center space-x-3">
-                    <button @click="sidebarOpen = true"
-                        class="md:hidden text-textSecondary hover:text-textPrimary p-2 rounded-lg border border-border">
+                    <button @click="sidebarOpen = true" aria-label="Buka menu navigasi"
+                        class="md:hidden min-h-11 min-w-11 inline-flex items-center justify-center text-textSecondary hover:text-textPrimary p-2 rounded-lg border border-border focus:outline-none focus:ring-2 focus:ring-primary/30">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
-                    <h1 class="text-lg md:text-xl font-bold text-textPrimary">@yield('header_title', 'Inventory System')</h1>
+                    <h1 class="min-w-0 truncate text-lg md:text-xl font-bold text-textPrimary">@yield('header_title', 'Inventory System')</h1>
                 </div>
 
                 <div class="flex items-center space-x-3">
@@ -125,7 +125,7 @@
                             <span
                                 class="text-sm font-medium">{{ session('success') ?? session('error') }}</span>
                         </div>
-                        <button @click="show = false" class="text-slate-400 hover:text-slate-600">
+                        <button @click="show = false" aria-label="Tutup notifikasi" class="min-h-11 min-w-11 inline-flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
